@@ -20,7 +20,7 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model) {
 
-        model.addAttribute("title", "MyJobs");
+        model.addAttribute("title", "jobs");
 
         return "index";
     }
@@ -34,20 +34,22 @@ public class HomeController {
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                       Errors errors, Model model, @RequestParam int employerId) {
+                                    Errors errors, Model model) {
 
         if (errors.hasErrors()) {
-	    model.addAttribute("title", "Add Job");
+            model.addAttribute("title", "Add Job");
             return "add";
         }
 
         return "redirect:";
     }
 
+
     @GetMapping("view/{jobId}")
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
             return "view";
     }
+
 
 }

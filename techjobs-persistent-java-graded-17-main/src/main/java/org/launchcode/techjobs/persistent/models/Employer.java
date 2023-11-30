@@ -8,12 +8,18 @@ import jakarta.validation.constraints.Size;
 public class Employer extends AbstractEntity {
     @NotBlank
     @Size(min = 5, max = 100)
-    public String location;
+    private String location;
 
 
     public Employer(){
 
     };
 
+    public String getLocation() {
+        return location;
+    }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }
