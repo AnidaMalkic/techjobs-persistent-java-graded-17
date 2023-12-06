@@ -23,6 +23,7 @@ public class ListController {
 
     @Autowired
     private JobRepository jobRepository;
+
     @Autowired
     private EmployerRepository employerRepository;
 
