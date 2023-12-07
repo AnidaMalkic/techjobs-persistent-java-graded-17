@@ -54,9 +54,9 @@ public class HomeController {
                                     Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Job");
+            //model.addAttribute("title", "Add Job");
 
-            model.addAttribute("employers", employerRepository.findAll());
+            //model.addAttribute("employers", employerRepository.findAll());
 
             return "add";
 
@@ -66,9 +66,9 @@ public class HomeController {
 //        List<Employer> employerObjs = (List<Employer>) employerRepository.findAllById(employerId);
 //        newJob.setEmployer(employerObjs);
 
-        Optional<Employer> employerObjs = employerRepository.findById(employerId);
-        Employer employer = employerObjs.get();
-        newJob.setEmployer(employer);
+        Employer employerObjs = employerRepository.findById(employerId).orElse(new Employer());
+       // Employer employer = employerObjs.get();
+        newJob.setEmployer(employerObjs);
 
         List<Skill> skillObjs = (List<Skill>) skillRepository.findAllById(skills);
         newJob.setSkills(skillObjs);
@@ -82,9 +82,15 @@ public class HomeController {
 
     public String displayViewJob(Model model, @PathVariable int jobId) {
 
-        model.addAttribute("job", jobRepository.findAll());
+       // model.addAttribute("job", jobRepository.findAll());
+ Optional jobObj = jobRepository.findById(jobId);
 
-            return "view";
+ if (!jobObj.isEmpty()) {
+     Job theJob = (Job) jobObj.get();
+     model.addAttribute("job", theJob);
+     return "view";
+ }
+     return "redirect";
     }
 
 
